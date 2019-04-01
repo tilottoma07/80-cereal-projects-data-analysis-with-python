@@ -1,0 +1,147 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+def read_csv():
+    try:
+        file_name = input("Please enter a file name (with .csv extention): ")
+        df = pd.read_csv(file_name)
+        cerealdf = pd.DataFrame(df)
+
+        #open a file to write the data
+        write_file=open('cereal_report.txt','w')
+        write_file.close()
+        return cerealdf
+    except:
+        print('The file does not exist. Exiting...')
+        exit()
+
+#this function write the summary of the datasets
+def summary(cerealdf):
+    print("Summary of the datasets")
+    print(cerealdf.describe())
+
+    write_file=open('cereal_report.txt','a')
+    write_file.write('=========================================================\n')
+    write_file.write("Summary of the datasets\n")
+    write_file.write(str(cerealdf.describe()))
+    write_file.write('=========================================================\n\n')
+    write_file.close()
+
+def mean_std(cerealdf):
+
+    print('=========================================================')
+    print("The Mean and standard deviation of Calorie is", "\n", cerealdf['calories'].agg(['mean','std']))
+    print('=========================================================')
+    print("The Mean and standard deviation of Protein is", "\n", cerealdf['protein'].agg(['mean','std']))
+    print('=========================================================')
+    print("The Mean and standard deviation of Fat is", "\n", cerealdf['fat'].agg(['mean','std']))
+    print('=========================================================')
+    print("The Mean and standard deviation of Sodium is", "\n", cerealdf['sodium'].agg(['mean','std']))
+    print('=========================================================')
+    print("The Mean and standard deviation of Fiber is", "\n", cerealdf['fiber'].agg(['mean','std']))
+    print('=========================================================')
+    print("The Mean and standard deviation of Carbohydrates is", "\n", cerealdf['carbo'].agg(['mean','std']))
+    print('=========================================================')
+    print("The Mean and standard deviation of Sugar is", "\n", cerealdf['sugars'].agg(['mean','std']))
+    print('=========================================================')
+    print("The Mean and standard deviation of Weight of serving is", "\n", cerealdf['weight'].agg(['mean','std']))
+    print('=========================================================')
+    print("The Mean and standard deviation of Cup of serving is", "\n", cerealdf['cups'].agg(['mean','std']))
+    print('=========================================================')
+
+    write_file = open('cereal_report.txt', 'a')
+    write_file.write('\n''========================================================='+'\n')
+    write_file.write("The Mean and standard deviation of Calorie is"+'\n'+str(cerealdf['calories'].agg(['mean', 'std'])))
+    write_file.write('\n''========================================================='+'\n')
+    write_file.write("The Mean and standard deviation of Protein is"+'\n'+str(cerealdf['protein'].agg(['mean', 'std'])))
+    write_file.write('\n''========================================================='+'\n')
+    write_file.write("The Mean and standard deviation of Fat is"+'\n'+str(cerealdf['fat'].agg(['mean', 'std'])))
+    write_file.write('\n''========================================================='+'\n')
+    write_file.write("The Mean and standard deviation of Sodium is"+'\n'+str(cerealdf['sodium'].agg(['mean', 'std'])))
+    write_file.write('\n''========================================================='+'\n')
+    write_file.write("The Mean and standard deviation of Fiber is"+'\n'+str(cerealdf['fiber'].agg(['mean', 'std'])))
+    write_file.write('\n''========================================================='+'\n')
+    write_file.write("The Mean and standard deviation of Carbohydrates is"+'\n'+str(cerealdf['carbo'].agg(['mean', 'std'])))
+    write_file.write('\n''========================================================='+'\n')
+    write_file.write("The Mean and standard deviation of Sugar is"+'\n'+str(cerealdf['sugars'].agg(['mean', 'std'])))
+    write_file.write('\n''========================================================='+'\n')
+    write_file.write("The Mean and standard deviation of Weight of serving is"+'\n'+str(cerealdf['weight'].agg(['mean', 'std'])))
+    write_file.write('\n''========================================================='+'\n')
+    write_file.write("The Mean and standard deviation of Cup of serving is"+'\n'+str(cerealdf['cups'].agg(['mean', 'std'])))
+    write_file.write('\n''========================================================='+'\n')
+
+
+
+def max_value(cerealdf):
+    print("The name of the cereal with max calorie is", "\n",
+          cerealdf[['name', 'calories']][cerealdf.calories == cerealdf.calories.max()])
+    print('=========================================================')
+    print("The name of the cereal with max protein is", "\n",
+          cerealdf[['name', 'protein']][cerealdf.protein == cerealdf.protein.max()])
+    print('=========================================================')
+    print("The name of the cereal with max fat is", "\n",
+          cerealdf[['name', 'fat']][cerealdf.fat == cerealdf.fat.max()])
+    print('=========================================================')
+    print("The name of the cereal with max sodium is", "\n",
+          cerealdf[['name', 'sodium']][cerealdf.sodium == cerealdf.sodium.max()])
+    print('=========================================================')
+    print("The name of the cereal with max fiber is", "\n",
+          cerealdf[['name', 'fiber']][cerealdf.fiber == cerealdf.fiber.max()])
+    print('=========================================================')
+
+    write_file = open('cereal_report.txt', 'a')
+    write_file.write("The name of the cereal with max calorie is"+'\n'+str(
+          cerealdf[['name', 'calories']][cerealdf.calories == cerealdf.calories.max()]))
+    write_file.write('\n''========================================================='+'\n')
+    write_file.write("The name of the cereal with max protein is"+'\n'+str(
+          cerealdf[['name', 'protein']][cerealdf.protein == cerealdf.protein.max()]))
+    write_file.write('\n''========================================================='+'\n')
+    write_file.write("The name of the cereal with max fat is"+'\n'+str(
+          cerealdf[['name', 'fat']][cerealdf.fat == cerealdf.fat.max()]))
+    write_file.write('\n''========================================================='+'\n')
+    write_file.write("The name of the cereal with max sodium is"+'\n'+str(
+          cerealdf[['name', 'sodium']][cerealdf.sodium == cerealdf.sodium.max()]))
+    write_file.write('\n''========================================================='+'\n')
+    write_file.write("The name of the cereal with max fiber is"+'\n'+str(
+          cerealdf[['name', 'fiber']][cerealdf.fiber == cerealdf.fiber.max()]))
+    write_file.write('\n''========================================================='+'\n')
+
+def hist_cereal_manufacturers(cerealdf):
+    fig = plt.figure()
+    type_colors = ['#78C850','#F08030','#6890F0','#A8B820','#A8A878','#A040A0','#F8D030']
+    sns.countplot(x='mfr',data=cerealdf, dodge=True, palette= type_colors)
+    plt.show()
+    fig.savefig('A histogram of the cereal manufacturers.png')
+
+def hist_calories_per_serving(cerealdf):
+    fig = plt.figure()
+    # assuming per serving =  1 cup
+    calories_per_servings = cerealdf['calories'] / cerealdf['cups']  # converting all calories to per serving
+
+    sns.distplot(calories_per_servings.values, kde=False, axlabel="Calories per serving",
+                 bins=[50, 100, 150, 200, 250, 300, 350, 400, 450, 500])
+    calories_per_servings_mean = calories_per_servings.mean()
+    plt.axvline(calories_per_servings.mean(), color='red',
+                label='Mean of the calories per serving is ' + str(calories_per_servings_mean))
+    plt.legend(loc='upper right')
+    plt.xticks([50, 100, 150, 200, 250, 300, 350, 400, 450, 500])
+    plt.show()
+    fig.savefig('A histogram of the calories per serving.png')
+
+#this function plots the boxplot of the calories per cereal for each manufacturer
+def boxplot_calories(cerealdf):
+    fig = plt.figure()
+    sns.boxplot(x='mfr', y="calories", data = cerealdf)
+    plt.show()
+    fig.savefig('A histogram of the calories per cereal for each manufacturer.png')
+
+def main():
+    cerealdf = read_csv()
+    summary(cerealdf)
+    mean_std(cerealdf)
+    max_value(cerealdf)
+    hist_cereal_manufacturers(cerealdf)
+    hist_calories_per_serving(cerealdf)
+    boxplot_calories(cerealdf)
+main()
